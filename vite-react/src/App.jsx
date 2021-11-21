@@ -1,10 +1,19 @@
 import { useState } from 'react'
+import lodash from 'lodash-es';
 import logo from './logo.svg'
 import './App.css'
+
 
 function App() {
   const [count, setCount] = useState(0)
 
+  const globModules = import.meta.glob('./glob/*')
+  console.log('globModules',globModules)
+  Object.entries(globModules).forEach(([k,v]) => {
+    v().then(m => {
+      console.log(k + ':' + m)
+    })
+  })
   return (
     <div className="App">
       <header className="App-header">
